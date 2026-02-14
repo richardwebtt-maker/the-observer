@@ -2,40 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Video;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
+use App\Services\NewsTickerService;
+use App\Services\YouTubeService;
+use Illuminate\Support\Facades\Cache;
 
 class VideoController extends Controller
 {
-    public function upload(Request $request)
+    public function showLatest(YouTubeService $yt)
     {
-        $request->validate([
-            'title' => 'required|string',
-            'video' => 'required|file|mimes:mp4,mov,avi,webm',
+        $videos = $yt->getLatestVideos(7);
+
+        return view('video.latest', [
+            'latestVideo' => $videos->first(),
+            'videos' => $videos->slice(1),
         ]);
-
-        $response = Http::withToken(config('services.cloudflare.api_token'))
-            ->attach('file', fopen($request->file('video'), 'r'), $request->file('video')->getClientOriginalName())
-            ->post(config('services.cloudflare.base_url').'/'.config('services.cloudflare.account_id').'/stream');
-
-        if ($response->failed()) {
-            return back()->withErrors(['error' => 'Upload failed']);
-        }
-
-        $uid = $response['result']['uid'];
-
-        Video::create([
-            'title' => $request->title,
-            'cloudflare_video_id' => $uid,
-            'published_at' => now(),
-        ]);
-
-        return back()->with('success', 'Video uploaded');
     }
 
-    public function showUploadForm()
+    // ✅ Videos archive page
+    public function index(YouTubeService $yt, NewsTickerService $newsTicker)
     {
-        return view('videos.upload'); // Blade file at resources/views/videos/upload.blade.php
+        $videos = $yt->getLatestVideos(12);
+
+        $headlines = Cache::remember(
+            'news_ticker_headlines',
+            now()->addMinutes(30),
+            fn () => $newsTicker->fetchHeadlines()
+        );
+
+        return view('videos', [
+            'latestVideo' => $videos->first(),
+            'videos' => $videos->slice(1),
+            'headlines' => collect($headlines),
+        ]);
     }
 }

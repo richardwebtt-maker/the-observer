@@ -94,6 +94,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+
 // Scroll top button
 const scrollTop = document.querySelector('.scroll-top');
 if (scrollTop) {
@@ -143,9 +145,48 @@ const swiper = new Swiper(".latest-videos-swiper", {
 });
 
 // Auto-scroll every 15 seconds
-setInterval(() => {
+let autoScrollInterval = setInterval(() => {
     swiper.slideNext();
 }, 15000);
+
+const sponsorSwiper = new Swiper('.sponsored-swiper', {
+    slidesPerView: 1,
+    loop: true,
+    autoHeight: true,
+    autoplay: {
+        delay: 8000,
+        disableOnInteraction: false,
+    },
+    allowTouchMove: true,
+});
+
+document.querySelectorAll('.video-slide').forEach(slide => {
+    slide.addEventListener('click', () => {
+        const uid = slide.dataset.uid;
+        const thumb = slide.querySelector('.video-thumb');
+
+        if (!thumb || thumb.querySelector('iframe')) return; // already playing
+
+        thumb.innerHTML = `
+                <iframe
+                    src="https://iframe.videodelivery.net/${uid}?autoplay=true"
+                    allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
+                    allowfullscreen
+                    width="100%"
+                    height="230"
+                    style="border: none; border-radius: 8px;">
+                </iframe>
+            `;
+
+        // Stop swiper only if it's in desktop Swiper section
+        if (slide.closest('.latest-videos-swiper')) {
+            swiper.autoplay?.stop?.();
+            clearInterval(autoScrollInterval);
+        }
+    });
+});
+
+
 
 // Typed text
 const typed = document.querySelector('.typed');
@@ -240,7 +281,103 @@ themeToggle.addEventListener('click', () => {
 
 initializeTheme();
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', function () {
+    if (typeof Swiper !== 'undefined') {
+        const heroSwiper = new Swiper('.merch-hero-swiper', {
+            // core behavior
+            loop: true,
+            effect: 'cards',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 1,
+            spaceBetween: 0,
+
+            // Card effect options
+            cardsEffect: {
+                perSlideOffset: 3,
+                perSlideRotate: 3,
+                rotate: true,
+                slideShadows: false,
+            },
+
+            // autoplay: automatic but still allow manual control
+            autoplay: {
+                delay: 3500,
+                pauseOnMouseEnter: true,
+                disableOnInteraction: false, // allows manual switching without stopping autoplay permanently
+            },
+
+            // navigation & pagination
+            navigation: {
+                nextEl: '.dm-card-swiper-next',
+                prevEl: '.dm-card-swiper-prev',
+            },
+            pagination: {
+                el: '.dm-card-swiper-pagination',
+                clickable: true,
+            },
+
+            // responsive tweaks: keep single-focused card but scale card size on breakpoints
+            breakpoints: {
+                320: { slidesPerView: 1 },
+                640: { slidesPerView: 1 },
+                1024: { slidesPerView: 1 },
+            },
+        });
+
+        // expose heroSwiper if needed
+        window.heroSwiper = heroSwiper;
+    }
+
+    // Modal wiring (uses your existing modal IDs: #shirtModal, #modalImage, #shirtNameInput, #requestBtn, #shirtRequestForm)
+    const modal = document.getElementById('shirtModal');
+    const modalImage = document.getElementById('modalImage');
+    const shirtNameInput = document.getElementById('shirtNameInput');
+    const requestBtn = document.getElementById('requestBtn');
+    const shirtForm = document.getElementById('shirtRequestForm');
+    const closeBtn = modal?.querySelector('.close');
+
+    function openShirtModal(imgSrc, name) {
+        if (!modal) return;
+        if (modalImage) modalImage.src = imgSrc;
+        if (shirtNameInput) shirtNameInput.value = name;
+        // show the modal (your markup expects .modal to be toggled via classes)
+        modal.style.display = 'flex'; // or remove .hidden / add .flex depending on your CSS
+        // optionally show the form or request button logic
+        if (shirtForm) shirtForm.style.display = 'none';
+        if (requestBtn) requestBtn.style.display = 'inline-block';
+    }
+
+    // Event delegation for clicking any merch slide/card
+    document.body.addEventListener('click', function (e) {
+        const slide = e.target.closest('.merch-slide, .merch-card, .shirt-item');
+        if (!slide) return;
+        const img = slide.dataset.img || slide.getAttribute('data-img');
+        const name = slide.dataset.name || slide.getAttribute('data-name');
+
+        if (img && name) {
+            openShirtModal(img, name);
+        }
+    });
+
+    // close modal
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function () {
+            if (modal) modal.style.display = 'none';
+            if (modalImage) modalImage.src = '';
+        });
+    }
+
+    // request button toggles form
+    if (requestBtn) {
+        requestBtn.addEventListener('click', function () {
+            if (shirtForm) shirtForm.style.display = 'block';
+            requestBtn.style.display = 'none';
+        });
+    }
+});
+
+/*document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('shirtModal');
     const modalImage = document.getElementById('modalImage');
     const requestBtn = document.getElementById('requestBtn');
@@ -283,6 +420,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+*/
+
+document.addEventListener('DOMContentLoaded', function () {
+    const modal = document.getElementById('videoModal');
+    const modalVideoContainer = document.getElementById('modalVideoContainer');
+    const closeModal = document.getElementById('closeModal');
+
+    document.body.addEventListener('click', function (e) {
+        const trigger = e.target.closest('[data-video-id]');
+        if (!trigger) return;
+
+        const videoId = trigger.dataset.videoId;
+
+        modalVideoContainer.innerHTML = `
+            <iframe
+                src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&rel=0"
+                allow="autoplay; encrypted-media; picture-in-picture"
+                allowfullscreen
+                width="100%"
+                height="100%"
+                style="border: none;">
+            </iframe>
+        `;
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    });
+
+    closeModal.addEventListener('click', () => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        modalVideoContainer.innerHTML = '';
+    });
+
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal.click();
+    });
+});
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const showButton = document.getElementById('showAnswerForm');
@@ -294,4 +470,46 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    const headlines = window.HEADLINES ?? [];
+    const list = document.getElementById('headlineList');
 
+    if (!list || headlines.length < 4) return;
+
+    let index = 3;
+
+    setInterval(() => {
+        const first = list.children[0];
+
+        first.classList.add('fade-out');
+
+        setTimeout(() => {
+            first.remove();
+
+            // Slide remaining up
+            Array.from(list.children).forEach(li => {
+                li.classList.add('slide-up');
+            });
+
+            setTimeout(() => {
+                Array.from(list.children).forEach(li => {
+                    li.classList.remove('slide-up');
+                });
+
+                const next = headlines[index % headlines.length];
+                index++;
+
+                const li = document.createElement('li');
+                li.className = 'headline-item';
+                li.innerHTML = `
+                    <a href="${next.link}" target="_blank">
+                        ${next.title}
+                    </a>
+                `;
+
+                list.appendChild(li);
+            }, 400);
+        }, 1200);
+
+    }, 12000); // Slow, readable
+});

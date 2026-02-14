@@ -33,10 +33,11 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
-    // Cloudflare Stream config
-    'cloudflare' => [
-        'account_id' => env('CLOUDFLARE_ACCOUNT_ID'),
-        'api_token' => env('CLOUDFLARE_API_TOKEN'),
-        'base_url' => 'https://api.cloudflare.com/client/v4/accounts',
+    /*
+    | YouTube API Service
+    */
+    'youtube' => [
+        'key' => env('YOUTUBE_API_KEY'),
+        'playlist_id' => env('YOUTUBE_PLAYLIST_ID'),
     ],
 ];
