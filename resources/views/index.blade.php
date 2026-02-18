@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Home')
+@section('title', 'The Observer')
 
 @section('content')
 
@@ -18,7 +18,8 @@
             @if ($latestVideo)
             <div class="youtube-preview w-75 mx-auto">
 
-                <div class="thumb-container ratio ratio-16x9 shadow-lg glow-target">
+                <div class="thumb-container ratio ratio-16x9 shadow-lg glow-target" data-aos="zoom-out"
+                    data-aos-delay="150">
                     <iframe
                         src="https://www.youtube.com/embed/{{ $latestVideo['videoId'] }}?autoplay=1&mute=1&rel=0&modestbranding=1"
                         allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen
@@ -34,7 +35,7 @@
             @else
             <p class="text-center">No featured interview available.</p>
             @endif
-            <div class="ad-slot video-side-panel">
+            <div class="ad-slot video-side-panel" data-aos="flip-right" data-aos-delay="200">
                 <div class="ad-inner">
                     <p>Your brand could be here!</p>
                     <a href="{{ route('advertise') }}" class="ad-link" style="color: var(--heading-color)">
@@ -47,11 +48,11 @@
         <section id="latest-interviews" class="latest-videos-section px-2 py-4">
             <h2 class="text-xl font-bold text-center mb-3" style="font-style: italic; color: var(--heading-color);">
                 <a href="{{ route('videos') }}" style="color: var(--heading-color); text-decoration: none">
-                Latest Videos
+                    Latest Videos
                 </a>
             </h2>
 
-            <div class="video-list">
+            <div class="video-list" data-aos="fade-down" data-aos-delay="150">
                 @foreach ($videos as $video)
                 <div class="video-row open-video-modal" data-video-id="{{ $video['videoId'] }}">
 
@@ -66,7 +67,7 @@
                 </div>
                 @endforeach
             </div>
-            <div class="video-list-mobile">
+            <div class="video-list-mobile" data-aos="fade-down" data-aos-delay="200">
                 <div class="card">
                     <a href="{{ route('videos') }}" class="card-link">
                         <h4>View All Videos</h4>
@@ -87,97 +88,9 @@
 
     </section>
 
-    <!--<div class="about-preview mt-4" data-aos="slide-up" data-aos-delay="200">
-
-                    <div class="about-half-1">
-                        <div class="about-preview-1 p-4">
-
-                            <h5 class="mb-1">Soon On</h5>
-                        </div>
-                        <div class="items">
-                            <div class="about-info">
-                                <p class="about-spread">Sundays at 7pm</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="about-half-2">
-                        <div class="about-preview-2 p-4">
-                            <h5 class="mb-1">Also Found On</h5>
-                        </div>
-                    </div>
-
-                </div>
-
-
-
-                 Right Column: Description
-                <div class="col-12 col-lg-5" data-aos="fade-up" data-aos-delay="250">
-                    <div class="content"
-                        style="border-left: 3px solid var(--accent-color); border-radius: 3px; padding:3.5rem">
-                        <h2 class="text-l font-bold mb-3" style="font-family: DM Serif Text">Page Navigation</h2>
-                        <ul class="list-unstyled">
-                            <li class="glow-pulse-hover mb-3">
-                                <a href="#latest-interviews" style="text-decoration: none">
-                                    <h3>∘ Interviews</h3>
-                                </a>
-                            </li>
-                            <li class="glow-pulse-hover mb-3">
-                                <a href="#schedule" style="text-decoration: none">
-                                    <h3>∘ About The Show</h3>
-                                </a>
-                            </li>
-                            <li class="glow-pulse-hover mb-3">
-                                <a href="#question" style="text-decoration: none">
-                                    <h3>∘ Question Of The Week</h3>
-                                </a>
-                            </li>
-                            <li class="glow-pulse-hover mb-3">
-                                <a href="#merchandise" style="text-decoration: none">
-                                    <h3>∘ Merchandise</h3>
-                                </a>
-                            </li>
-                            <li class="glow-pulse-hover mb-3">
-                                <a href="#contact" style="text-decoration: none">
-                                    <h3>∘ Contact Information</h3>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-    </div>
-    </section>-->
-
-    <!-- Mobile Video List (Visible Only on Mobile Devices)
-    <div class="video-wrapper">
-        <div class="mobile-video-list collapse-container">
-            @foreach ($videos as $video)
-            <div class="video-box cursor-pointer open-video-modal" data-video-id="{{ $video['videoId'] }}">
-                <div class="video-info">
-                    <h4 class="text-base leading-snug">{{ $video['title'] }}</h4>
-                </div>
-                <div
-                    class="thumbnail-container w-32 sm:w-36 md:w-40 flex-shrink-0 aspect-video rounded-md overflow-hidden video-thumb">
-                    <img src="{{ $video['thumbnail'] }}" alt="{{ $video['title'] }}" class="w-full h-full object-cover">
-                </div>
-            </div>
-            @endforeach
-        </div>
-        <div class="fade-overlay"></div>
-        <button class="expand-button" onclick="expandSection(this)"
-            style="border: 2px solid var(--contrast-color); max-width:fit-content">
-            <p style="font-family: var(--heading-font); scale: .75; font-weight: 800">More Interviews</p>
-            ▼
-        </button>
-        <br>
-    </div>
--->
-
-
-
-
     <!-- Schedule Section-->
     <section id="schedule" class="schedule section">
-        <div class="live-info-container text-center">
+        <div class="live-info-container text-center" data-aos="zoom-out" data-aos-delay="200">
             <h3 class="live-info">Live! <br> Every Sunday From 5-7pm!</h3>
         </div>
         <div class="schedule-area">
@@ -206,7 +119,7 @@
 
     <!--question Section -->
     <section id="question" class="question section justify-content-center">
-        <div class="question-container mt-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="question-container mt-4" data-aos="fade-up" data-aos-delay="200">
             <div class="question-background">
                 <span>?</span>
                 <span>?</span>
@@ -291,110 +204,8 @@
                 style="color: var(--default-color)">Advertise
                 with Us</a></h1>
     </section>
-    <!--<section id="ad-banner" class="ad-banner swiper sponsored-swiper">
-        <div class="ad-banner-title">
-            <h2 class="text-xl font-bold text-center" style="font-weight: 900; color: var(--heading-color)">
-                Sponsored
-            </h2>
-        </div>
-        <div class="swiper-wrapper">
-            <!-- Sponsor 1 -->
-    <!--<div class="swiper-slide"
-                style="background-image:linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(48, 73, 119, 0.2))">
-                <div class="sponsor-slide">
-                    <img src="{{ asset('assets/img/OmegaXL logo.png') }}" alt="OmegaXL Logo" class="sponsor-logo" />
-                    <div class="sponsor-text">
-                        <h2>Live long stay strong!</h2>
-                        <h3>Get your bottle of OmegaXL today!</h3>
-                    </div>
-                </div>
-            </div>
 
-
-            <!-- Sponsor 2 -->
-    <!--<div class="swiper-slide"
-                style="background-image:linear-gradient(90deg, rgba(43, 110, 235, 0.2), rgba(75, 244, 97, 0.2))">
-                <div class="sponsor-slide">
-                    <img src="{{ asset('assets/img/mitlin logo.png') }}" alt="Mitlin Logo" class="sponsor-logo" />
-                    <div class="sponsor-text">
-                        <h2>Find all your construction project needs!</h2>
-                        <h3>At #97 Eastern Main Rd. Arouca</h3>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Sponsor 3 -->
-    <!--<div class="swiper-slide"
-                style="background-image:linear-gradient(90deg, rgba(52, 149, 92, 0.2), rgba(118, 200, 129, .2))">
-                <div class="sponsor-slide">
-                    <img src="{{ asset('assets/img/ryanair logo.png') }}" alt="Ryanair Logo" class="sponsor-logo" />
-                    <div class="sponsor-text">
-                        <h2>Quick, reliable auto air-conditioning done right!</h2>
-                        <h3>Find them at #41 Cane Farm Road, Tacarigua</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="merchandise" class="merch-section dark-background">
-        <h2 class="text-xl font-bold text-center mb-4" style="font-style: italic; color: var(--heading-color);">
-            Official
-            Merchandise</h2>
-        <div class="merch-wrapper">
-            <div class="merch-grid collapse-container">
-                <div class="shirt-item" data-img="{{ asset('assets/img/observer black polo.png') }}"
-                    data-name="Observer Black Polo">
-                    <img src="{{ asset('assets/img/observer black polo.png') }}" alt="Observer Black Polo">
-                    <p>Observer Polo Black</p>
-                    <p>Sizes: S, M, L, XL, XXL</p>
-                    <p>Material: Cotton</p>
-                </div>
-                <!-- Add more shirts as needed -->
-    <!--<div class="shirt-item" data-img="{{ asset('assets/img/observer blue polo.png') }}"
-                    data-name="Observer Blue Polo">
-                    <img src="{{ asset('assets/img/observer blue polo.png') }}" alt="Observer Blue Polo">
-                    <p>Observer Polo Blue</p>
-                    <p>Sizes: S, M, L, XL, XXL</p>
-                    <p>Material: Cotton</p>
-                </div>
-                <div class="shirt-item" data-img="{{ asset('assets/img/observer white polo.png') }}"
-                    data-name="Observer White Polo">
-                    <img src="{{ asset('assets/img/observer white polo.png') }}" alt="Observer White Polo">
-                    <p>Observer Polo White</p>
-                    <p>Sizes: S, M, L, XL, XXL</p>
-                    <p>Material: Cotton</p>
-                </div>
-                <div class="shirt-item" data-img="{{ asset('assets/img/observer grey polyester polo.png') }}"
-                    data-name="Observer Grey Polyester Polo">
-                    <img src="{{ asset('assets/img/observer grey polyester polo.png') }}"
-                        alt="Observer Grey Polyester Polo">
-                    <p>Observer Polo Grey</p>
-                    <p>Sizes: S, M, L, XL, XXL</p>
-                    <p>Material: Polyester</p>
-                </div>
-                <div class="shirt-item" data-img="{{ asset('assets/img/observer purple polyester polo.png') }}"
-                    data-name="Observer Purple Polyester Polo">
-                    <img src="{{ asset('assets/img/observer purple polyester polo.png') }}"
-                        alt="Observer Purple Polyester Polo">
-                    <p>Observer Polo Purple</p>
-                    <p>Sizes: S, M, L, XL, XXL</p>
-                    <p>Material: Polyester</p>
-                </div>
-                <div class="shirt-item" data-img="{{ asset('assets/img/observer blue polyester polo.png') }}"
-                    data-name="Observer Blue Polyester Polo">
-                    <img src="{{ asset('assets/img/observer blue polyester polo.png') }}"
-                        alt="Observer Blue Polyester Polo">
-                    <p>Observer Polo Navy Blue</p>
-                    <p>Sizes: S, M, L, XL, XXL</p>
-                    <p>Material: Polyester</p>
-                </div>
-            </div>
-            <div class="fade-overlay"></div>
-            <button class="expand-button" onclick="expandSection(this)">▼</button>
-        </div>
-
-        <!-- Modal -->
+    <!-- Modal -->
     <div id="shirtModal" class="modal">
         <div class="modal-content dark-background">
             <span class="close">&times;</span>
@@ -448,64 +259,6 @@
     <br>
 
     </section>
-
-    <!-- Contact Section -->
-    <!--<section id="contact" class="contact section">
-
-        <!-- Section Title -->
-    <!--<h2 class="text-xl font-bold text-center mb-4" style="font-style: italic; color: var(--heading-color);">
-            Contact
-            Info</h2>
-
-        <div class="container" data-aos="fade-up" data-aos-delay="100">
-
-            <div class="row gy-4">
-                <div class="row gy-4">
-
-                    <div class="col-lg-12">
-                        <div class="info-item d-flex flex-column justify-content-center align-items-center"
-                            data-aos="fade-up" data-aos-delay="200">
-                            <i class="bi bi-geo-alt"></i>
-                            <h3>Address</h3>
-                            <p>#142 Munroe Road</p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="info-item d-flex flex-column justify-content-center align-items-center"
-                            data-aos="fade-up" data-aos-delay="300">
-                            <i class="bi bi-telephone"></i>
-                            <h3>Call</h3>
-                            <p>+1 868 494-0938</p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="info-item d-flex flex-column justify-content-center align-items-center"
-                            data-aos="fade-up" data-aos-delay="400">
-                            <i class="bi bi-envelope"></i>
-                            <h3>Email</h3>
-                            <p>observertrinidad@gmail.com</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </section> /Contact Section -->
-
-    <!-- Floating Navigation Box
-    <nav id="floating-nav"
-        style="position: fixed; top: 80px; right: 32px; z-index: 9999; background: var(--surface-color, #fff); border: 2px solid var(--accent-color, #3a7); border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.12); padding: 1.2rem 1.5rem; min-width: 180px; transition: box-shadow 0.2s; opacity: 0.95;">
-        <ul style="list-style: none; margin: 0; padding: 0;">
-            <li style="margin-bottom: 1rem;"><a href="#latest-interviews" class="floating-link">∘ Interviews</a></li>
-            <li style="margin-bottom: 1rem;"><a href="#schedule" class="floating-link">∘ About The Show</a></li>
-            <li style="margin-bottom: 1rem;"><a href="#question" class="floating-link">∘ Question Of The Week</a></li>
-            <li style="margin-bottom: 1rem;"><a href="#merchandise" class="floating-link">∘ Merchandise</a></li>
-            <li><a href="#contact" class="floating-link">∘ Contact</a></li>
-        </ul>
-    </nav>-->
 
     <style>
         #floating-nav:hover {

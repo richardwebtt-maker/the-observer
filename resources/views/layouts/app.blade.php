@@ -5,12 +5,19 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>@yield('title', 'The Observer')</title>
-    <meta name="description" content="">
-    <meta name="keywords" content="">
+    <meta name="description"
+        content="The Observer with Mikee K delivers news, interviews, and engaging media content. Advertise with us to reach viewers through video, audio, and digital platforms.">
+    <meta name="keywords"
+        content="The Observer, Mikee K, news show, interviews, media platform, advertising opportunities, digital media, Caribbean news, talk show, Michael Kerr, The Observer with Mikee K, Trinidad and Tobago, T&T, Trinidad and Tobago politics, West Indies, WI, UNC, PNM, Elections">
 
     <!-- Favicons -->
-    <link href="{{ asset('assets/img/apple-touch-icon.png')}}" rel="icon">
-    <link href="{{ asset('assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+    <link rel="icon" type="image/png" href="/assets/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -102,7 +109,8 @@
             </div>
         </div>
         <div class="merch-preview">
-            <h3>MERCHANDISE</h3>
+            <h3><a href="{{ route('merch') }}"
+                    style="text-decoration: none; color: var(--heading-color)">MERCHANDISE</a></h3>
             <h5>Brought to you by Mitlin Hardware.</h5>
             <div class="swiper merch-hero-swiper dm-card-swiper">
                 <div class="swiper-wrapper dm-card-swiper-wrapper">

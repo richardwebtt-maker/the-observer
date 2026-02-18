@@ -335,7 +335,7 @@ body.light-theme .site-header.scrolled .main-logo {
     top: 0;
     right: 0;
     height: 100vh;
-    width: 50vw;
+    width: 75vw;
     max-width: 420px;
     background: var(--shadow-bold, rgba(6, 6, 10, .96));
     backdrop-filter: blur(10px);
