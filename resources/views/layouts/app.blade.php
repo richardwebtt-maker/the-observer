@@ -18,10 +18,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Lexend:wght@100..900&display=swap"
         rel="stylesheet">
-    <!-- Vendor CSS Files -->
 
-
-    @vite(['resources/css/custom.css'])
+    @vite(['resources/css/custom.css','resources/js/app.js'])
 </head>
 
 <body class="index-page">
