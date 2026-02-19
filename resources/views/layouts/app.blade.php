@@ -10,6 +10,9 @@
     <meta name="keywords"
         content="The Observer, Mikee K, news show, interviews, media platform, advertising opportunities, digital media, Caribbean news, talk show, Michael Kerr, The Observer with Mikee K, Trinidad and Tobago, T&T, Trinidad and Tobago politics, West Indies, WI, UNC, PNM, Elections">
 
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1551144550516390"
+        crossorigin="anonymous"></script>
+
     <!-- Favicons -->
     <link rel="icon" type="image/png" href="/assets/img/apple-touch-icon.png">
     <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
